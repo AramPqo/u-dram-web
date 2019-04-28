@@ -1,0 +1,22 @@
+.dashboard-page {
+  padding: 10px;
+
+  .approve-button {
+    background-color: #3dc555;
+    border-color: #3dc555;
+  }
+
+  .reject-button {
+    background-color: #f70f0f;
+    border-color: #f70f0f;
+  }
+
+
+}
+
+.fa-close-xim {
+  border: none !important;
+  background-color: #2399e5 !important;
+  color: #fff !important;
+  cursor: pointer;
+}

@@ -1,0 +1,112 @@
+<mat-radio-group [formControl]="form.controls['identificationType']">
+  <mat-radio-button [value]="identificationTypes.Passport"
+                    [checked]="!form.controls['identificationType'].value ? true : form.controls['identificationType'].value == identificationTypes.Passport">Անձնագիր</mat-radio-button>
+  <mat-radio-button [value]="identificationTypes.IDCard"
+                    [checked]="!form.controls['identificationType'].value ? form.controls['identificationType'].value == identificationTypes.IDCard : false">Նույնականացման քարտ</mat-radio-button>
+  <!--<mat-radio-button [value]="identificationTypes.Both"-->
+                    <!--[checked]="!form.controls['identificationType'].value ? form.controls['identificationType'].value == identificationTypes.Both : false">Անձնագիր և Նույնականացման քարտ</mat-radio-button>-->
+</mat-radio-group>
+
+<br/>
+
+<ng-container *ngIf="identificationType == identificationTypes.Passport || identificationType == identificationTypes.Both">
+
+  <mat-form-field>
+    <input matInput placeholder="Անձնագրի համար" #passportNumber [formControl]="form.controls['passport'].controls['number']"
+           [errorStateMatcher]="matcher" maxlength="9">
+
+    <mat-hint align="end">{{passportNumber.value.length}} / 9</mat-hint>
+
+    <mat-error *ngIf="form.controls['passport'].controls['number'].hasError('required')">
+      <strong>Պարտադիր</strong> է լրացման համար
+    </mat-error>
+
+    <mat-error *ngIf="form.controls['passport'].controls['number'].hasError('pattern')">
+      Մուտքագրված տվյալները <strong>ճիշտ չեն</strong>
+    </mat-error>
+
+    <mat-error *ngIf="form.controls['passport'].controls['number'].hasError('minlength')">
+      Պետք է պարունակի <strong>9 սիմվոլ</strong>
+    </mat-error>
+
+  </mat-form-field>
+
+  <mat-form-field>
+    <input matInput placeholder="Տրված է (ում կողմից)" #passportIssuedBy [formControl]="form.controls['passport'].controls['issuedBy']"
+           [errorStateMatcher]="matcher" maxlength="3">
+
+    <mat-hint align="end">{{passportIssuedBy.value.length}} / 3</mat-hint>
+
+    <mat-error *ngIf="form.controls['passport'].controls['issuedBy'].hasError('required')">
+      <strong>Պարտադիր</strong> է լրացման համար
+    </mat-error>
+
+    <mat-error *ngIf="form.controls['passport'].controls['issuedBy'].hasError('pattern')">
+      Մուտքագրված տվյալները <strong>ճիշտ չեն</strong>
+    </mat-error>
+
+    <mat-error *ngIf="form.controls['passport'].controls['issuedBy'].hasError('minlength')">
+      Պետք է պարունակի <strong>3 սիմվոլ</strong>
+    </mat-error>
+
+  </mat-form-field>
+
+  <app-date-selector [formControl]="form.controls['passport'].controls['dateOfIssue']" placeholder="Տրման ամսաթիվ"
+                     [startYear]="1990" [endYear]="currentYear"></app-date-selector>
+
+  <app-date-selector [formControl]="form.controls['passport'].controls['validityDate']" placeholder="Վավերական է մինչև"
+                     [startYear]="currentYear" [endYear]="currentYear + 20"></app-date-selector>
+
+</ng-container>
+
+<br/>
+
+<ng-container *ngIf="identificationType == identificationTypes.IDCard || identificationType == identificationTypes.Both">
+
+  <mat-form-field>
+    <input matInput placeholder="Նույն. քարտի համար" #idCardNumber [formControl]="form.controls['idCard'].controls['number']"
+           [errorStateMatcher]="matcher" maxlength="9">
+
+    <mat-hint align="end">{{ idCardNumber.value.length }} / 9</mat-hint>
+
+    <mat-error *ngIf="form.controls['idCard'].controls['number'].hasError('required')">
+      <strong>Պարտադիր</strong> է լրացման համար
+    </mat-error>
+
+    <mat-error *ngIf="form.controls['idCard'].controls['number'].hasError('pattern')">
+      Մուտքագրված տվյալները <strong>ճիշտ չեն</strong>
+    </mat-error>
+
+    <mat-error *ngIf="form.controls['idCard'].controls['number'].hasError('minlength')">
+      Պետք է պարունակի <strong>9 սիմվոլ</strong>
+    </mat-error>
+
+  </mat-form-field>
+
+  <mat-form-field>
+    <input matInput placeholder="Տրված է (ում կողմից)" #idCardIssuedBy [formControl]="form.controls['idCard'].controls['issuedBy']"
+           [errorStateMatcher]="matcher" maxlength="3">
+
+    <mat-hint align="end">{{idCardIssuedBy.value.length}} / 3</mat-hint>
+
+    <mat-error *ngIf="form.controls['idCard'].controls['issuedBy'].hasError('required')">
+      <strong>Պարտադիր</strong> է լրացման համար
+    </mat-error>
+
+    <mat-error *ngIf="form.controls['idCard'].controls['issuedBy'].hasError('pattern')">
+      Մուտքագրված տվյալները <strong>ճիշտ չեն</strong>
+    </mat-error>
+
+    <mat-error *ngIf="form.controls['idCard'].controls['issuedBy'].hasError('minlength')">
+      Պետք է պարունակի <strong>3 սիմվոլ</strong>
+    </mat-error>
+
+  </mat-form-field>
+
+  <app-date-selector [formControl]="form.controls['idCard'].controls['dateOfIssue']" placeholder="Տրման ամսաթիվ"
+                     [startYear]="1990" [endYear]="currentYear"></app-date-selector>
+
+  <app-date-selector [formControl]="form.controls['idCard'].controls['validityDate']" placeholder="Վավերական է մինչև"
+                     [startYear]="currentYear" [endYear]="currentYear + 20"></app-date-selector>
+
+</ng-container>
